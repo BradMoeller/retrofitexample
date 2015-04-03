@@ -37,11 +37,17 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         vText = (TextView) findViewById(R.id.text_view);
         vContainer = (LinearLayout) findViewById(R.id.container);
 
-
-
+        /**
+         * Step 1: Initialize the RestAdapter
+         */
         mRestAdapter = new RestAdapter.Builder()
                 .setEndpoint("https://mockapi.uat.bbhosted.com")
                 .build();
+
+        /**
+         * Step 2: Instantiate the services that you want to use using the RestAdapter
+         * These services are interfaces, so they can very easily be mocked.
+         */
         mCategoryService = mRestAdapter.create(CategoryService.class);
 
         vButton.setOnClickListener(this);
@@ -50,12 +56,23 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getTag() != null) {
-            // Tag is categoryId returned from server
+            /**
+             * Step 2: Make a request using the service
+             */
             mCategoryService.listCategories(v.getTag().toString(), this);
         } else {
             mCategoryService.listCategories(this);
         }
     }
+
+
+
+
+    /**
+     * Step 4: listen for either success or failure callback
+     * Success gives you the model defined in the service's invoked method's signature
+     * i.e. void listCategories(@Path("id") String categoryId, Callback<MCategoryPage> callback);
+     */
 
     @Override
     public void success(MCategoryPage categoryPage, Response response) {
