@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void success(MCategoryPage categoryPage, Response response) {
         if (categoryPage == null) {
-            Toast.makeText(this, "This must be a /categories/id/products route. Redirecting...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "This must be a /categories/id/products route.", Toast.LENGTH_SHORT).show();
             return;
         }
         vContainer.removeAllViews();
